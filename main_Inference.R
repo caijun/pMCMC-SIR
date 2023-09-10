@@ -1,20 +1,18 @@
 ### convert matlab mat file to RData file ###
-setwd("~/Desktop/Rasmussen.etal-PLoSComputBiol-2011")
 
 library(TTmisc)
 # read matlab mat files
 library(R.matlab)
 list[] <- readMat("pMCMCSourceCode/SIR_endemic_sim3_mockData.mat", fixNames = F)
 save("mockdata", "epi_params", "prevalence", "t_data", 
-     file = "pMCMCsrc/SIR_endemic_sim3_mockData.RData")
+     file = "data/SIR_endemic_sim3_mockData.RData")
 list[] <- readMat("pMCMCSourceCode/SIR_endemic_sim3_coalTimes.mat", fixNames = F)
 save("sample_sizes", "coal_times_back", "sample_times_back", 
-     file = "pMCMCsrc/SIR_endemic_sim3_coalTimes.RData")
+     file = "data/SIR_endemic_sim3_coalTimes.RData")
 list[] <- readMat("pMCMCSourceCode/SIR_covmat_041111.mat", fixNames = F)
-save("cov_mat", file = "pMCMCsrc/SIR_covmat_041111.RData")
+save("cov_mat", file = "data/SIR_covmat_041111.RData")
 ### convert matlab mat file to RData file ###
 
-setwd("~/Desktop/Rasmussen.etal-PLoSComputBiol-2011/pMCMCsrc")
 source("get_G_events.R")
 source("function_f_SIR.R")
 source("pdTreeMatrix.R")
@@ -28,14 +26,14 @@ library(pracma)  # for repmat, tic, toc functions
 library(mvtnorm)  # for rmvnorm function
 
 # Input files
-mockData_file <- 'SIR_endemic_sim3_mockData.RData'  # File containing mock time series and true parameters
-coalTimes_file <- 'SIR_endemic_sim3_coalTimes.RData'  # File containing genealogical data (sampling and coalescence times)
-output_file <- 'SIR_endemic_sim3_MCMCout.RData'  # MCMC output goes here
+mockData_file <- 'data/SIR_endemic_sim3_mockData.RData'  # File containing mock time series and true parameters
+coalTimes_file <- 'data/SIR_endemic_sim3_coalTimes.RData'  # File containing genealogical data (sampling and coalescence times)
+output_file <- 'output/SIR_endemic_sim3_MCMCout.RData'  # MCMC output goes here
 
 # Load data files
 load(mockData_file)  # time series data
 load(coalTimes_file)  # genealogical data: coal times and sampling times in months since present
-load("SIR_covmat_041111.RData")  # covariance matrix for MCMC proposal density
+load("data/SIR_covmat_041111.RData")  # covariance matrix for MCMC proposal density
 
 # Get time series data
 data <- list()
